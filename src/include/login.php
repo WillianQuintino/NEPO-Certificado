@@ -67,7 +67,7 @@
 		}
     ?>
     </p>
-    <form id="Login" name="Login" method="post" action="/src/include/validar-login.php">
+    <form id="Login" name="Login" method="post" action="login.php">
       <ul>
         <li>
           <input type="text" placeholder="Username" id="username" name="username" size="30" onblur="CheckBlank(this)" value="<?php if(isset($_GET['user'])) echo $_GET['user']; ?>" />
@@ -85,30 +85,34 @@
   <div id="register" class="form-action hide">
     <h1>Register</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, culpa repudiandae.</p>
-    <form id="Cadastro" name="Cadastro" method="post" action="/src/include/validar-cadastro.php">
+    <form id="Cadastro" name="Cadastro" method="post" action="register.php">
       <ul>
         <li>
-          <input type="text" placeholder="Nome Completo" />
+          <input type="text" placeholder="Nome Completo" id="namePost" name="namePost" />
         </li>
         <li>
-          <input type="text" placeholder="Usuario" />
+          <input type="text" placeholder="Usuario" id="usernamePost" name="usernamePost" />
         </li>
         <li>
           <!--<input type="text" placeholder="Instituição" />-->
-          <input type="text" list="institution" placeholder="Instituição" />
+          <input type="text" list="institution" placeholder="Instituição" name="institutionPost" />
           <datalist id="institution">
             <?php datalist_institution(); ?>
           </datalist>
         </li>
         <li>
-          <input type="email" placeholder="E-mail" />
+          <input type="email" placeholder="E-mail" id="email" name="emailPost" />
         </li>
         <li>
-          <input type="password" placeholder="Senha" />
+          <input type="password" placeholder="Senha" id="password" name="passwordPost" />
         </li>
         <li>
           <input type="password" placeholder="Confirmação Senha" />
         </li>
+        <li>
+          <input type="checkbox" name="sendMailExeption" value="sendMailExeption" >Deseja Receber email de atualizações, promoções e outros.
+        </li>
+      </br>
         <li>
           <input type="submit" value="Sign Up" class="button" />
         </li>

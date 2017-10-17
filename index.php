@@ -3,8 +3,8 @@
         <!--PHP links-->
         <?php
           // php config
-         include dirname(__FILE__)."/src/config/site.php";
-         include dirname(__FILE__)."/src/config/db.php";
+         include dirname(__FILE__)."/src/config/site.config";
+         include dirname(__FILE__)."/src/config/db.config";
          // php include
          include dirname(__FILE__)."/src/include/functions/db.php";
         ?>

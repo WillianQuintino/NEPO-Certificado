@@ -57,6 +57,5 @@ function decrypt($decrypted_string) {
 	$decrypted_string = str_replace("\0","",$decrypted_string);
 	return $decrypted_string;
 
-
 }
 ?>
