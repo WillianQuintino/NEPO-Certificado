@@ -4,8 +4,8 @@
   include_once 'src/config/site.config';
 
   //Include funtions in code
-  include_once 'src/functions/db.php';
-  include_once 'src/functions/security.php';
+  include_once 'src/include/functions/db.php';
+  include_once 'src/include/functions/security.php';
 
   //Data coming by url
   $id = $_GET['id'];
@@ -18,7 +18,7 @@
     echo 'Erro:Não Foi Possivel conectar com db!|';
   }else{
     //Search the data base
-    $sql = "SELECT `email`, `active`, `key`, `date_ts` FROM `users` WHERE id='".$id."'";
+    $sql = "SELECT `email`, `user_active`, `key`, `date_ts` FROM `user` WHERE id_user='".$id."'";
     if( !mysqli_query( $link, $sql)  ) {
         echo "Erro:Não Foi Possivel conectar tabela do db!".mysqli_error()."|";
         mysqli_close($link);
@@ -27,23 +27,23 @@
         $sql = mysqli_query( $link, $sql );
         $rs = mysqli_fetch_array( $sql );
         mysqli_close($link);
-        if($rs['active'] === '0'){
+        if($rs['active'] !== '1'){
             //compare the data what caught base, with the data coming by url
             $valido = true;
-        
-            if( decrypt($emailMd5, $key) !== $rs['email'] )
+
+            if( $emailMd5 !== md5($rs['email']) )
                 $valido = false;
-        
+
             if( $key !== $rs['key'] )
                 $valido = false;
-        
-            if( decrypt($dataMd5, $key) !== $rs['date_ts'])
+
+            if( $dataMd5 !== md5($rs['date_ts']) )
                 $valido = false;
-        
-        
+
+
             // the data is correct, time to activate the registration
             if( $valido === true ) {
-                $sql = "update users set active='1' where id='$id'";
+                $sql = "update user set user_active='1' where id_user='$id'";
                 $link = db_connection();
                 mysqli_query($link, $sql);
                 mysqli_close($link);

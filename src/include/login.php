@@ -67,16 +67,16 @@
 		}
     ?>
     </p>
-    <form id="Login" name="Login" method="post" action="login.php">
+    <form id="Login" name="Login" method="post" action="validar-login.php">
       <ul>
         <li>
-          <input type="text" placeholder="Username" id="username" name="username" size="30" onblur="CheckBlank(this)" value="<?php if(isset($_GET['user'])) echo $_GET['user']; ?>" />
+          <input type="text" placeholder="Username" id="username" name="usernamePost" size="30" onblur="CheckBlank(this)" value="<?php if(isset($_GET['user'])) echo $_GET['user']; ?>" />
         </li>
         <li>
-          <input type="password" placeholder="Password" id="password" name="password" type="password" />
+          <input type="password" placeholder="Password" id="password" name="passwordPost" type="password" />
         </li>
         <li>
-          <input id="login" name="login" value="Login" type="submit" class="button" />
+          <input id="login" name="loginPost" value="Login" type="submit" class="button" />
         </li>
       </ul>
     </form>
@@ -88,10 +88,10 @@
     <form id="Cadastro" name="Cadastro" method="post" action="register.php">
       <ul>
         <li>
-          <input type="text" placeholder="Nome Completo" id="namePost" name="namePost" />
+          <input type="text" placeholder="Nome Completo" name="namePost" />
         </li>
         <li>
-          <input type="text" placeholder="Usuario" id="usernamePost" name="usernamePost" />
+          <input type="text" placeholder="Usuario" name="usernamePost" />
         </li>
         <li>
           <!--<input type="text" placeholder="Instituição" />-->
@@ -101,10 +101,10 @@
           </datalist>
         </li>
         <li>
-          <input type="email" placeholder="E-mail" id="email" name="emailPost" />
+          <input type="email" placeholder="E-mail" name="emailPost" />
         </li>
         <li>
-          <input type="password" placeholder="Senha" id="password" name="passwordPost" />
+          <input type="password" placeholder="Senha" name="passwordPost" />
         </li>
         <li>
           <input type="password" placeholder="Confirmação Senha" />
