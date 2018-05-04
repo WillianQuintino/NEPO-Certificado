@@ -1,7 +1,6 @@
 <?php
 // Inclui Cnfigurações do Banco de dados
 include "../config/db.php";
-include "../config/site.php";
 // Inclui funções php
 include "/functions/db.php";
 include "/functions/security.php";

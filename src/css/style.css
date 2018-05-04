@@ -1,7 +1,14 @@
 
-      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-      @import url(https://fonts.googleapis.com/css?family=Roboto:100);
+/* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+@import url(https://fonts.googleapis.com/css?family=Roboto:100);
+input[type='number'] {
+    -moz-appearance:textfield;
+}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 .flat-form {
   background: #e74c3c;
   color: white;
@@ -41,15 +48,11 @@
 .flat-form .tabs li a.active {
   background: #e74c3c;
   border-right: none;
-  -moz-transition: all 0.5s linear;
-  -o-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
   transition: all 0.5s linear;
 }
 .flat-form .tabs li a:hover {
   background: #d65548;
-  -moz-transition: all 0.5s linear;
-  -o-transition: all 0.5s linear;
   -webkit-transition: all 0.5s linear;
   transition: all 0.5s linear;
 }
@@ -104,20 +107,14 @@
   width: 80px;
   color: #ffffff;
   text-align: center;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
-  -moz-box-shadow: 0px 3px 1px #2075aa;
   -webkit-box-shadow: 0px 3px 1px #2075aa;
   box-shadow: 0px 3px 1px #2075aa;
-  -moz-transition: all 0.15s linear;
-  -o-transition: all 0.15s linear;
   -webkit-transition: all 0.15s linear;
   transition: all 0.15s linear;
 }
 .flat-form form input.button:hover {
   background: #1e75aa;
-  -moz-box-shadow: 0 3px 1px #237bb2;
   -webkit-box-shadow: 0 3px 1px #237bb2;
   box-shadow: 0 3px 1px #237bb2;
 }
@@ -145,119 +142,118 @@
 }
 #Line1
 {
-   border-color: #A0A0A0;
-   border-style: solid;
-   border-bottom-width: 36px;
-   border-top: 0px;
-   border-left: 0px;
-   border-right: 0px;
-   height: 0 !important;
-   line-height: 0px !important;
-   margin: 0;
-   padding: 0;
+  border-color: #A0A0A0;
+  border-style: solid;
+  border-bottom-width: 36px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  height: 0 !important;
+  line-height: 0px !important;
+  margin: 0;
+  padding: 0;
 }
 #wb_PanelMenu1 a, #PanelMenu1_markup li a
 {
-   display: block;
-   text-align: center;
-   vertical-align: middle;
+  display: block;
+  text-align: center;
+  vertical-align: middle;
 }
 #PanelMenu1_markup
 {
-   display: none;
-   margin: 0;
-   padding: 0;
+  display: none;
+  margin: 0;
+  padding: 0;
 }
 #PanelMenu1_panel #PanelMenu1_markup
 {
-   display: block;
+  display: block;
 }
 #PanelMenu1_markup ul
 {
-   list-style: none;
-   list-style-type: none;
-   margin: 0;
-   padding: 0;
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 #PanelMenu1_markup li a, #PanelMenu1_markup li a:hover
 {
-   padding: 10px 10px 10px 10px;
-   border-width: 0;
-   border-bottom-width: 1px;
-   border-radius: 0;
-   -webkit-box-shadow: none;
-   -moz-box-shadow: none;
-   box-shadow: none;
+  padding: 10px 10px 10px 10px;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 #PanelMenu1_panel
 {
-   display: none;
-   position: absolute;
-   position: fixed;
-   top: 0;
-   height: 100%;
-   width: 250px;
-   z-index: 9999;
+  display: none;
+  position: absolute;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 250px;
+  z-index: 9999;
 }
 #wb_PanelMenu1 a, #PanelMenu1_markup li a
 {
-   color: #F7F7F7;
-   border: 1px #2E2E2E solid;
-   background-color: #3E3E3E;
-   font-family: Arial;
-   font-weight: normal;
-   font-size: 13px;
-   font-style: normal;
-   text-decoration: none;
+  color: #F7F7F7;
+  border: 1px #2E2E2E solid;
+  background-color: #3E3E3E;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 13px;
+  font-style: normal;
+  text-decoration: none;
 }
 #wb_PanelMenu1 a:hover, #PanelMenu1_markup li a:hover
 {
-   color: #F7F7F7;
-   background-color: #484848;
-   border: 1px #2E2E2E solid;
+  color: #F7F7F7;
+  background-color: #484848;
+  border: 1px #2E2E2E solid;
 }
 #PanelMenu1_panel
 {
-   background-color: #3E3E3E;
-   overflow-y: auto;
+  background-color: #3E3E3E;
+  overflow-y: auto;
 }
 #PanelMenu1
 {
-   padding-left: 32px;
+  padding-left: 32px;
 }
 #PanelMenu1:after
 {
-   position: absolute;
-   top: 50%;
-   left: 16px;
-   width: 16px;
-   height: 16px;
-   margin-top: -8px;
-   content: "\f0c9";
-   display: inline-block;
-   font-family: FontAwesome;
-   font-size: 16px;
-   line-height: 16px;
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  content: "\f0c9";
+  display: inline-block;
+  font-family: FontAwesome;
+  font-size: 16px;
+  line-height: 16px;
 }
 #PanelMenu1
 {
-   line-height: 34px;
-   width: 9px;
-   height: 34px;
+  line-height: 34px;
+  width: 9px;
+  height: 34px;
 }
 #PanelMenu1_markup ul li i
 {
-   font-size: 16px;
-   padding: 0px 10px 0px 0px;
-   vertical-align: middle;
-   width: 16px;
+  font-size: 16px;
+  padding: 0px 10px 0px 0px;
+  vertical-align: middle;
+  width: 16px;
 }
 #PanelMenu1_markup span
 {
-   display: inline-block;
-   height: 16px;
-   vertical-align: middle;
-   line-height: 16px;
+  display: inline-block;
+  height: 16px;
+  vertical-align: middle;
+  line-height: 16px;
 }
 #content
 {
@@ -268,4 +264,53 @@
 {
   color: blue;
   height: 50px;
+}
+.padFix{
+    padding-top:8px;
+}
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    cursor:pointer;
+    display:block;
+    width:8px;
+    color: #333;
+    text-align:center;
+    position:relative;
+}
+   input[type=number] {
+   -moz-appearance: textfield;
+   -webkit-appearance: textfield;
+           appearance: textfield;
+   margin: 0;
+}
+/*URL: https://bootsnipp.com/snippets/featured/input-file-popover-preview-image*/
+.container{
+    margin-top:20px;
+}
+.image-preview-input {
+    position: relative;
+	  overflow: hidden;
+	  margin: 0px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+.image-preview-filename{
+  width: 100%;
+  margin-left:2px;
+  font-size: 20px;
 }

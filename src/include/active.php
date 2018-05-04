@@ -1,7 +1,6 @@
 <?php
   // Include config in code
   include_once 'src/config/db.config';
-  include_once 'src/config/site.config';
 
   //Include funtions in code
   include_once 'src/functions/db.php';
@@ -16,12 +15,12 @@
   echo $dataMd5;
 
   $link = db_connection();
-  
+
     if(!$link){
       echo 'Erro:Não Foi Possivel conectar com db!|';
     }else{
       //Search the data base
-      $sql = "SELECT `email`, `active`, `key`, `date_ts` FROM `users` WHERE id='".$id."'";
+      $sql = "SELECT `email`, `user_active`, `key`, `date_ts`, `function` FROM `user` WHERE id_user='".$id."'";
       if( !mysqli_query( $link, $sql)  ) {
           echo "Erro:Não Foi Possivel conectar tabela do db!".mysqli_error()."|";
           mysqli_close($link);
@@ -30,19 +29,19 @@
       $rs = mysqli_fetch_array( $sql );
       //compare the data what caught base, with the data coming by url
       $valido = true;
-
-      if( decrypt($emailMd5, $key) !== $rs['email'] )
+      echo $rs['function'];
+      if( md5($emailMd5) !== $rs['email'] )
           $valido = false;
 
       if( $key !== $rs['key'] )
           $valido = false;
 
-      if( decrypt($dataMd5, $key) !== $rs['date_ts'])
+      if( md5($dataMd5) !== $rs['date_ts'])
           $valido = false;
           echo "</br>key db: ";
           echo $rs['date_ts'];
           echo "</br>key decrypt: ";
-          echo decrypt($dataMd5, $key);
+          echo decrypt($dataMd5);
 
 
       // the data is correct, time to activate the registration
@@ -52,6 +51,14 @@
           echo "Cadastro ativado com sucesso!";
       } else {
           echo "Informações inválidas";
+      }
+
+      // verifica se a função esta em 0 e atribui função aluno
+      if ($rs['function'] === "0"){
+        $sql = "update users set function='2' where id='$id'";
+        mysqli_query($link, $sql);
+        echo "inserido Função aluno";
+      }
       }
       mysqli_close($link);
     }

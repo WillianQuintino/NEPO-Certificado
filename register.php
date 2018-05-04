@@ -1,4 +1,6 @@
 <?php
+$disable_security = 1;
+
 // Include config in code
 include_once 'src/config/db.config';
 include_once 'src/config/site.config';

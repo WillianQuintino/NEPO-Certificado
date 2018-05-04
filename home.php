@@ -1,15 +1,142 @@
+<!doctype html>
+<html lang="pt">
 <?php
-// A sessão precisa ser iniciada em cada página diferente
-  if (!isset($_SESSION)) session_start();
-
-  // Verifica se não há a variável da sessão que identifica o usuário
-  if (!isset($_SESSION['id'])) {
-      // Destrói a sessão por segurança
-      session_destroy();
-      // Redireciona o visitante de volta pro login
-      header("Location: index.php"); exit;
-  }
-echo '<b>ID Session:</b>'.$_SESSION['id'];
+// php config
+require_once( "/src/config/db.config");
+require_once( "/src/config/site.config");
+// php head
+require_once( "/src/include/head.php");
 ?>
+<body>
+  <?php
+    // inicia conecção com banco de dados
+    $link = db_connection();
 
-<a href="logoff.php">Logoff</a>
+    menu($link, $row['function'], 'home', $row['name']);
+
+    // Finaliza conecção com banco de dados
+    db_close($link);
+  ?>
+<siv class="container">
+  <div class="row" style="margin: 0 auto;">
+    <div class="col-md-9">
+      <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Eventos</div>
+        <div class="panel-body">
+          <p>Eventos Disponiveis</p>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow: scroll;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Subtitulo</th>
+                <th scope="col">Palestrante</th>
+                <th scope="col">Organizadores</th>
+                <th scope="col">Início das Inscrições</th>
+                <th scope="col">Início do Evento</th>
+                <th scope="col">Horario de Início</th>
+                <th scope="col">Horario de Término</th>
+                <th scope="col">Programação</th>
+                <th scope="col">Incrições</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Seminário Demografia da Infância e Juventude</td>
+                <td></td>
+                <td></td>
+                <td>Joice Melo Vieira</td>
+                <td>26/10/2017</td>
+                <td>09/11/2017</td>
+                <td>09:00</td>
+                <td>17:00</td>
+                <td><a class="nav-link" href="#">Link</a></td>
+                <td><a class="nav-link" href="#">Link</a></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Seminário Demografia da Infância e Juventude</td>
+                <td></td>
+                <td></td>
+                <td>Joice Melo Vieira</td>
+                <td>26/10/2017</td>
+                <td>09/11/2017</td>
+                <td>09:00</td>
+                <td>17:00</td>
+                <td><a class="nav-link" href="#">Link</a></td>
+                <td><a class="nav-link" href="#">Link</a></td>
+              </tr>
+              <tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Seminário Demografia da Infância e Juventude</td>
+                  <td></td>
+                  <td></td>
+                  <td>Joice Melo Vieira</td>
+                  <td>26/10/2017</td>
+                  <td>09/11/2017</td>
+                  <td>09:00</td>
+                  <td>17:00</td>
+                  <td><a class="nav-link" href="#">Link</a></td>
+                  <td><a class="nav-link" href="#">Link</a></td>
+                </tr>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Certificados</div>
+        <div class="panel-body">
+          <p>Seus Certificados</p>
+        </div>
+
+        <!-- Table -->
+        <div style="overflow: scroll;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Seminário Demografia da Infância e Juventude</td>
+                <td><a class="nav-link" href="#">Link</a></td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Seminário Demografia da Infância e Juventude</td>
+                <td><a class="nav-link" href="#">Link</a></td>
+              </tr>
+              <tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Seminário Demografia da Infância e Juventude</td>
+                  <td><a class="nav-link" href="#">Link</a></td>
+                </tr>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+  </br>
+</div>
+</div>
+</body>
+</html>
