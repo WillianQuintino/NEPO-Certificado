@@ -51,19 +51,41 @@ if($_GET["page"]=='event'){
   //Redireciona para o Usuário alterado
   $url = SITE_URL.'event/index.php?page=type_event';
 }elseif($_GET["page"]=='registration'){
+  $_GET["v"] = str_replace(" ", "+", $_GET["v"]);
+  $id = new_decrypt($_GET["v"], 'casa12');
 
   //inicia Conexão Com O banco de dados
   $link = db_connection();
 
   //verifica se nao esta vazio as variaveis se não ele nao executa o mysql
-  if(isset($_GET['id'])){
-      echo 'registration';
-    $sql = "INSERT INTO `registration`(`Id`, `id_event`, `id_user`) VALUES (Null,'".$_GET['id']."','".$_SESSION['id']."')";
+  if(isset($_GET['v'])){
+    $sql = "INSERT INTO `registration`(`Id`, `id_event`, `id_user`) VALUES (Null,'".$id."','".$_SESSION['id']."')";
     mysqli_query($link, $sql) or die(mysql_error());
   }
   //Finaliza Conexão Com O banco de dados
   db_close($link);
   $url = SITE_URL.'event/index.php?page=registration';
+}elseif($_GET["page"]=='present'){
+  for ($i=1; $i <= $_POST['user']['count'] ; $i++) {
+    for ($j=0; $j < $_POST['user'][$i]['date']['count']; $j++) {
+      if (isset($_POST['user'][$i]['date'][$j]['check'])) {
+        //$sql .= "INSERT INTO `user_presence` ( `id_event`, `id_user`, `date`, `id_type_certificate`) VALUES  ('".$_POST['id_event']."', '".$_POST['user'][$i]['value']."', '".$_POST['user'][$i]['date'][$j]['value']."', '".$_POST['user'][$i]['type']."') ON DUPLICATE KEY UPDATE id_type_certificate='".$_POST['user'][$i]['type']."';";
+        //$sql .= "INSERT INTO `user_presence` ( `id_event`, `id_user`, `date`, `id_type_certificate`) SELECT * FROM  (SELECT '".$_POST['id_event']."', '".$_POST['user'][$i]['value']."', '".$_POST['user'][$i]['date'][$j]['value']."', '".$_POST['user'][$i]['type']."') AS tmp WHERE NOT EXISTS (SELECT * FROM user_presence WHERE id_event = '".$_POST['id_event']."' AND id_user = '".$_POST['user'][$i]['value']."' AND date = '".$_POST['user'][$i]['date'][$j]['value']."') LIMIT 1;";
+        $sql .= "IF (SELECT 1=1 FROM user_presence WHERE id_event = '".$_POST['id_event']."' AND id_user = '".$_POST['user'][$i]['value']."' AND  date = '".$_POST['user'][$i]['date'][$j]['value']."') THEN BEGIN UPDATE `user_presence` SET id_type_certificate = '".$_POST['user'][$i]['type']."' WHERE id_event = '".$_POST['id_event']."' AND id_user = '".$_POST['user'][$i]['value']."' AND  date = '".$_POST['user'][$i]['date'][$j]['value']."'; END; ELSE BEGIN INSERT INTO `user_presence` ( `id_event`, `id_user`, `date`, `id_type_certificate`) VALUES  ('".$_POST['id_event']."', '".$_POST['user'][$i]['value']."', '".$_POST['user'][$i]['date'][$j]['value']."', '".$_POST['user'][$i]['type']."'); END; END IF;";
+      }else{
+        $sql .= "DELETE FROM user_presence WHERE id_event = '".$_POST['id_event']."' AND id_user = '".$_POST['user'][$i]['value']."' AND  date = '".$_POST['user'][$i]['date'][$j]['value']."';";
+      }
+    }
+  }
+    //inicia Conexão Com O banco de dados
+    $link = db_connection();
+
+    mysqli_multi_query($link, $sql) or die(mysql_error());
+
+    //Finaliza Conexão Com O banco de dados
+    db_close($link);
+
+  $url = SITE_URL.'event/index.php?page=add&form=present&id='.$_POST['id_event'];
 }
 echo "<script>window.location.href = '".$url."';</script>";
 ?>

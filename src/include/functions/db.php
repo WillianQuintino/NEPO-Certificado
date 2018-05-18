@@ -44,6 +44,20 @@ function datalist_institution(){
   }
   db_close($link);
 }
+//Função para listar language institution para datalist
+function datalist_language(){
+  //Inicia conexão com o db
+  $link = db_connection();
+
+  //busca
+  $rs = mysqli_query($link, "SELECT DISTINCT language FROM event_model_certificate order by language asc") or die(mysql_error());
+
+  while( $row = mysqli_fetch_array($rs))
+  {
+    echo "<option>".$row['language']. "</option>";
+  }
+  db_close($link);
+}
 //Função para listar tabela funçoes para functions
 function datalist_functions($function_id){
 
@@ -121,6 +135,48 @@ function datalist_organizer($data){
   echo "<script>$('#organizer').selectpicker('val',[".$data[0].','.$data[1].','.$data[2]."]);</script>";
   db_close($link);
 }
+function datalist_user_type_certificate($data){
+  //Inicia conexão com o db
+  $link = db_connection();
+
+  //busca
+  $rs = mysqli_query($link, "SELECT Id, name FROM user_type_certificate order by name asc") or die(mysql_error());
+
+  while( $row = mysqli_fetch_array($rs))
+  {
+    echo '<option value="'.$row['Id'].'" '.$select.'>'.$row['name'].'</option>';
+  }
+  echo "<script>$('#type').selectpicker('val',".$data.");</script>";
+  db_close($link);
+}
+function list_type_certificate($id_event, $id_user, $indice){
+  $link = db_connection();
+  //busca
+  $rs = mysqli_query($link, "SELECT Id, name FROM type_certificate order by name asc") or die(mysql_error());
+  echo '<select id="user'.$indice.'" class="selectpicker" data-live-search="true" placeholder="Selecione o tipo" name="user['.$indice.'][type]">';
+  while( $row = mysqli_fetch_array($rs))
+  {
+    echo '<option value="'.$row['Id'].'" '.$select.'>'.$row['name'].'</option>';
+  }
+  echo '</select>';
+  $rs1 = mysqli_query($link, "SELECT `id_type_certificate` FROM `user_presence` WHERE `id_user` = ".$id_user." AND `id_event` = '".$id_event."' ORDER BY date LIMIT 1") or die(mysql_error());
+  while ($row1 = mysqli_fetch_array($rs1)) {
+    echo "<script>$('#user".$indice."').val('".$row1['id_type_certificate']."');</script>";
+  }
+  db_close($link);
+}
+function checked_date_type_certificate($id_event, $id_user, $date){
+  $link = db_connection();
+  $rs1 = mysqli_query($link, "SELECT `id_user` FROM `user_presence` WHERE `id_user` = ".$id_user." AND `id_event` = '".$id_event."' AND `date`= '".$date."' LIMIT 1") or die(mysql_error());
+  while ($row1 = mysqli_fetch_array($rs1)) {
+    if(isset($row1['id_user'])){
+      return 'checked';
+    }else {
+      return '';
+    }
+  }
+  db_close($link);
+}
 function organizerformate($organizer){
   $organizer = unserialize($organizer);
   $rs = "";
@@ -146,7 +202,7 @@ function tablelist_users($field, $ord, $param, $search_value, $maxpage, $page){
   $endereco = explode("/",$_SERVER ['REQUEST_URI']);
   $url = SITE_URL.$endereco[2]."/index.php?page=users";
 
-//verifica se foi setado variavel na url
+  //verifica se foi setado variavel na url
   if(isset($maxpage)){
     $url .= "&item=".$maxpage;
   }
@@ -385,14 +441,22 @@ function verified_event_date($event_id){
   db_close($link);
   $row = mysqli_fetch_array($rs);
   if($row[end_event] == "0000-00-00"){
-    if(($data < $row[start_event]) || $time < $row[start_event]){
-      return true;
+    if(($data <= $row['start_event'])){
+      if($data == $row['start_event'] AND $time >= $row['end_time']){
+        return false;
+      }else{
+        return true;
+      }
     }else{
       return false;
     }
   }else{
-    if(($data < $row[end_event]) || $time < $row[start_event]){
-      return true;
+    if(($data <= $row['end_event'])){
+      if($data == $row['end_event'] AND $time >= $row['end_time']){
+        return false;
+      }else{
+        return true;
+      }
     }else{
       return false;
     }

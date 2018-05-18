@@ -11,22 +11,31 @@ function menuDefault($link, $id_function, $activePage){
   echo '>
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span></a>
   <ul class="dropdown-menu">
-  <li><a href="#">Inscrições abertas</a></li>';
+  <li><a href="'.SITE_URL.'event/index.php?page=registration">Inscrições abertas</a></li>';
 
   if(checkuser($link, 'eventos', $id_function)){
     echo '
-    <li><a href="#">Confirmar Presentes</a></li>
     <li><a href="'.SITE_URL.'event/index.php?page=create">Criar</a></li>
-    <li><a href="'.SITE_URL.'event/index.php?page=event">Alterar</a></li>
-    <li><a href="#">Gerar relatorio de participantes</a></li>';
+    <li><a href="'.SITE_URL.'event/index.php?page=event">Administrar</a></li>';
   }
   echo '
   </ul>
-  </li>
-  <li ';
-  if($activePage === 'certificados')echo 'class="active"';
-  echo '><a href="#">Certificados</a></li>
-  <li ';
+  </li>';
+  if(checkuser($link, 'eventos', $id_function)){
+    echo '<li ';
+    if($activePage === 'certificados')echo 'class="active"';
+    echo '><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Certificados <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+    <li><a href="'.SITE_URL.'certificates/index.php?page=download">Download</a></li>
+    <li><a href="'.SITE_URL.'certificates/index.php?page=model">Modelos de Eventos</a></li>
+    <li><a href="'.SITE_URL.'certificates/index.php?page=type">Tipos de Participantes</a></li>
+    </ul>';
+  }else{
+    echo '<li ';
+    if($activePage === 'certificados')echo 'class="active"';
+    echo '><a href="#">Certificados</a></li>';
+  }
+  echo '<li ';
   if($activePage === 'contacts')echo 'class="active"';
   echo '><a href="'.SITE_URL.'home.php?page=contacts">Contatos</a></li>';
   if (checkuser($link, 'coordenacao', $id_function) or checkuser($link, 'secretaria_de_pesquisa', $id_function) or checkuser($link, 'financeiro', $id_function)){
@@ -125,8 +134,8 @@ function rollPageId($link, $data, $namedb, $nameid, $pageurl){
     $maxid = $row[$nameid];
   }
   ?>
-  <a href="<?php echo SITE_URL.$pageurl.($_GET["id"]-1).'&b=back'; ?>" class="btn btn-default <?php if($_GET["id"] <= 1) echo 'disabled'?>" >< Anterior</a>
-  <a href="<?php echo SITE_URL.$pageurl.($_GET["id"]+1).'&b=next'; ?>" class="btn btn-default <?php if($_GET["id"] >= $maxid) echo 'disabled'?>">Proximo ></a>
+  <a href="<?php echo SITE_URL.$pageurl.($_GET[$nameid]-1).'&b=back'; ?>" class="btn btn-default <?php if($_GET["id"] <= 1) echo 'disabled'?>" >< Anterior</a>
+  <a href="<?php echo SITE_URL.$pageurl.($_GET[$nameid]+1).'&b=next'; ?>" class="btn btn-default <?php if($_GET["id"] >= $maxid) echo 'disabled'?>">Proximo ></a>
   <?php
   if(!isset($data) AND $_GET["b"] == 'back' AND $_GET["id"] > 1){
     $url = SITE_URL.$pageurl.($_GET["id"]-1).'&b=back';
@@ -155,7 +164,7 @@ function pagination($total, $getpage, $itempage, $page, $field, $ord, $param, $s
     $link .= "page=".$getpage."&";
   }
 
-//verifica se foi setado variavel na url
+  //verifica se foi setado variavel na url
   if(isset($field)){
     $link .= "field=".$field."&";
   }
@@ -230,6 +239,23 @@ function pagination($total, $getpage, $itempage, $page, $field, $ord, $param, $s
     }
   }
   echo '</ul>
-    </nav>';
+  </nav>';
+}
+function subdate($data1, $data2){
+  if($data1 == "0000-00-00" OR $data2 == "0000-00-00"){
+    //echo "Entre as duas datas informadas, existem 1 dia.";
+    return 1;
+  }else{
+    // converte as datas para o formato timestamp
+    $d1 = strtotime($data1);
+    $d2 = strtotime($data2);
+    // verifica a diferença em segundos entre as duas datas e divide pelo número de segundos que um dia possui
+    $dataFinal = ($d2 - $d1) /86400;
+    // caso a data 2 seja menor que a data 1
+    if($dataFinal < 0)
+    $dataFinal = $dataFinal * -1;
+    //echo "Entre as duas datas informadas, existem $dataFinal dias.";
+    return $dataFinal;
+  }
 }
 ?>

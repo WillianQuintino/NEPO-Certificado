@@ -2,19 +2,27 @@
 if(empty($disable_security)){
   $disable_security = 0;
 }
-
 if($disable_security == 0){
   // A sessão precisa ser iniciada em cada página diferente
   if (!isset($_SESSION)) session_start();
 
   // Verifica se não há a variável da sessão que identifica o usuário
+  $link = db_connection();
+
   if (!isset($_SESSION['id'])) {
+    $rs = mysqli_fetch_array(mysqli_query($link, "SELECT name, function FROM user WHERE id_user = '".$_SESSION['id']."'"));
     // Destrói a sessão por segurança
     session_destroy();
     // Redireciona o visitante de volta pro login
     header("Location: index.php");
     logoff(SITE_URL); exit;
+  }elseif(isset($typepage)){
+    $rs = mysqli_fetch_array(mysqli_query($link, "SELECT function FROM user WHERE id_user = '".$_SESSION['id']."'"));
+    if(!checkuser($link, $typepage, $rs['function'])){
+      header("Location: ".SITE_URL."home.php");
+    }
   }
+  db_close($link);
 }
 
 // Recebe chave para criptografia
@@ -122,11 +130,24 @@ function remove_login_attempts($link, $ipAddress){
 
 function logoff($url){
   if (!isset($_SESSION)) session_start();
-  // Destrói a sessão por segurança
-  session_destroy();
-  if (!isset($url)) $url = "index.php";
-  // Redireciona o visitante de volta pro login
-  header("Location: ".$url); exit;
+
+  // Apaga todas as variáveis da sessão
+  $_SESSION = array();
+
+  // Se é preciso matar a sessão, então os cookies de sessão também devem ser apagados.
+  // Nota: Isto destruirá a sessão, e não apenas os dados!
+  if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+    $params["path"], $params["domain"],
+    $params["secure"], $params["httponly"]
+  );
+}
+// Destrói a sessão por segurança
+session_destroy();
+if (!isset($url)) $url = URL_SITE."index.php";
+// Redireciona o visitante de volta pro login
+header("Location: ".$url); exit;
 }
 
 function login($link, $user_active, $id_user, $url){

@@ -1,4 +1,6 @@
 <?php
+//tipo da pagina para segurança
+$typepage = 'admin';
 
 // php config
 require_once( "../src/config/db.config");

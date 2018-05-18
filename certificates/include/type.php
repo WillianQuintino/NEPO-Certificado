@@ -15,7 +15,7 @@
     if(isset($_GET["p"]))$page = $_GET["p"]; else $page = 1;
     if(isset($_GET["item"]))$item = $_GET["item"]; else $item = 10;
     //busca
-    $rs = mysqli_query($link, "SELECT event.id, name, caption, speaker, type_event.event_name, type_event.color_code, organizer, start_inscrition, start_event, end_event, start_time, end_time FROM event JOIN type_event ON event.id_type_event = type_event.Id ORDER BY start_event ASC LIMIT ".($page-1) * $item.", ".$item) or die(mysql_error());
+    $rs = mysqli_query($link, "SELECT event.id, name, caption, speaker, type_event.event_name, type_event.color_code, organizer, start_inscrition, start_event, end_event, start_time, end_time FROM user_type_certificate JOIN type_event ON event.id_type_event = type_event.Id ORDER BY start_event ASC LIMIT ".($page-1) * $item.", ".$item) or die(mysql_error());
     $usercont = mysqli_num_rows($rs);
     //Finaliza Conexão
     db_close($link);

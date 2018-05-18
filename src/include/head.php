@@ -46,6 +46,11 @@
 
   <link rel="stylesheet" href="<?php echo SITE_URL ?>src/css/style.css">
   <script src="<?php echo SITE_URL ?>src/js/script.js"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-  <title>Home | Nepo System</title>
+  <script src="<?php echo SITE_URL ?>lib/ckeditor/ckeditor.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.12/js/all.js" integrity="sha384-Voup2lBiiyZYkRto2XWqbzxHXwzcm4A5RfdfG6466bu5LqjwwrjXCMBQBLMWh7qR" crossorigin="anonymous"></script>
+
+  <script src="<?php echo SITE_URL ?>lib/ckeditor/plugins/nanospell/autoload.js"></script>
+
+
+  <title id="title">Home | Nepo System</title>
 </head>

@@ -1,10 +1,11 @@
 <?php
+//tipo da pagina para segurança
+$typepage = 'admin';
 // php config
 require_once( "../src/config/db.config");
 require_once( "../src/config/site.config");
 // php include
 require_once(__ROOT__.'\src\include\functions\db.php');
-
 require_once(__ROOT__.'\src\include\functions\security.php');
 require_once(__ROOT__.'\src\include\functions\upload.php');
 $url = SITE_URL.'admin/index.php';

@@ -5,6 +5,15 @@
   // php config
   include dirname(__FILE__)."/src/config/db.config";
   include dirname(__FILE__)."/src/config/site.config";
+
+  // A sessão precisa ser iniciada em cada página diferente
+  if (!isset($_SESSION)) session_start();
+
+  //verifica se ja exite uma seção se sim redireciona para Home
+  if (isset($_SESSION['id'])) {
+    header("Location: ".SITE_URL."home.php");
+  }
+  
   // php include
   include dirname(__FILE__)."/src/include/functions/db.php";
   ?>

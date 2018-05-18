@@ -269,18 +269,18 @@
 
               today = yyyy + '-' + mm + '-' + dd;
 
-              $("input#date_inscrition").attr("min", today);
+              //$("input#date_inscrition").attr("min", today);
               date_inscrition = $("input#date_inscrition").val();
               if(!date_inscrition){
                 $("input#date_event").attr("min", today);
               }else{
-                $("input#date_event").attr("min", $("input#date_inscrition").val());
+                $("input#date_event").attr("min", date_inscrition);
               }
               date_event = $("input#date_event").val();
               if(!date_event){
                 $("input#date_event_end").attr("min", today);
               }else{
-                $("input#date_event_end").attr("min", $("input#date_event").val());
+                $("input#date_event_end").attr("min", date_event);
               }
 
             }
