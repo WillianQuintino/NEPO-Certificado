@@ -1,20 +1,4 @@
 <?php
-
-// A sessão precisa ser iniciada em cada página diferente
-if (!isset($_SESSION)) session_start();
-
-// Verifica se não há a variável da sessão que identifica o usuário
-if (!isset($_SESSION['id'])) {
-  // Destrói a sessão por segurança
-  session_destroy();
-  // Redireciona o visitante de volta pro login
-  header("Location: index.php"); exit;
-}
-// php config
-require_once( "../src/config/db.config");
-require_once( "../src/config/site.config");
-// php include
-require_once(__ROOT__.'\include\functions\db.php');
 if($_GET["form"]=='ad_config'){
   $title = 'Adicionar configuração do AD';
   $html = '<br />

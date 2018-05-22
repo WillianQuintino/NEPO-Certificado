@@ -24,7 +24,7 @@ for($i=0; $i < count($config_grups); $i++){
       <!-- Default panel contents -->
       <div class="panel-heading"><?php echo $config_grups[$i] ?></div>
       <!-- Table -->
-      <div style="overflow: scroll; height: 500px">
+      <div style="height: 500px; padding:10px">
       </br>
       <form id="<?php echo $config_grups[$i] ?>" name="<?php echo $config_grups[$i] ?>" method="post" action="update.php?page=config" class="form-horizontal">
         <?php while(($row =  mysqli_fetch_assoc($config_site))) {?>
@@ -53,7 +53,7 @@ for($i=0; $i < count($config_grups); $i++){
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default"><h4 class="panel-title pull-left" style="padding-top: 7.5px;">Salvar</h4></button>
+            <button type="submit" class="btn btn-default">Salvar</button>
           </div>
         </div>
       </form>

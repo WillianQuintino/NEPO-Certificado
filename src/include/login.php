@@ -86,10 +86,20 @@
       Este usuario não é permitido para logar!<br/><br/>
       <?php
       break;
+      case "registration":
+      ?>
+      Usuario registrado com sucesso!<br/><br/>
+      <?php
+      break;
+      case "UserExist":
+      ?>
+      Usuario já registrando. Se esqueceu a senha tente resetar!<br/><br/>
+      <?php
+      break;
     }
     ?>
   </p>
-  <form id="Login" name="Login" method="post" action="validar-login.php">
+  <form id="Login" name="Login" method="post" action="do_login.php<?php if(isset($_GET['redir'])) echo '?redir='.$_GET['redir']; ?>">
     <ul>
       <li>
         <input type="text" placeholder="Username" id="username" name="usernamePost" size="30" onblur="CheckBlank(this)" value="<?php if(isset($_GET['user'])) echo $_GET['user']; ?>" />
@@ -107,7 +117,7 @@
 <div id="register" class="form-action hide">
   <h1>Register</h1>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, culpa repudiandae.</p>
-  <form id="Cadastro" name="Cadastro" method="post" action="register.php">
+  <form id="Cadastro" name="Cadastro" method="post" action="do_register.php">
     <ul>
       <li>
         <input type="text" placeholder="Nome Completo" name="namePost" />

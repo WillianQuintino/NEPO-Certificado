@@ -98,7 +98,7 @@ function menuUser($link, $id_function, $activePage, $name){
   }
   echo'
   <li role="separator" class="divider"></li>
-  <li><a href="'.SITE_URL.'logoff.php">Logoff</a></li>
+  <li><a href="'.SITE_URL.'logoff.php?redir='.urlencode($_SERVER[REQUEST_URI]).'">Logoff</a></li>
   </ul>
   </li>
   </ul>';
@@ -134,8 +134,8 @@ function rollPageId($link, $data, $namedb, $nameid, $pageurl){
     $maxid = $row[$nameid];
   }
   ?>
-  <a href="<?php echo SITE_URL.$pageurl.($_GET[$nameid]-1).'&b=back'; ?>" class="btn btn-default <?php if($_GET["id"] <= 1) echo 'disabled'?>" >< Anterior</a>
-  <a href="<?php echo SITE_URL.$pageurl.($_GET[$nameid]+1).'&b=next'; ?>" class="btn btn-default <?php if($_GET["id"] >= $maxid) echo 'disabled'?>">Proximo ></a>
+  <a href="<?php echo SITE_URL.$pageurl.($_GET["id"]-1).'&b=back'; ?>" class="btn btn-default <?php if($_GET["id"] <= 1) echo 'disabled'?>" >< Anterior</a>
+  <a href="<?php echo SITE_URL.$pageurl.($_GET["id"]+1).'&b=next'; ?>" class="btn btn-default <?php if($_GET["id"] >= $maxid) echo 'disabled'?>">Proximo ></a>
   <?php
   if(!isset($data) AND $_GET["b"] == 'back' AND $_GET["id"] > 1){
     $url = SITE_URL.$pageurl.($_GET["id"]-1).'&b=back';

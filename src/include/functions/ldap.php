@@ -150,4 +150,25 @@ function loginad($link, $con, $username, $password, $domain, $grupo, $ad_user, $
   }
   return $erro_con;
 }
+function check_ad($con, $username, $ad_user, $ad_pass, $grupo)
+{
+  try {
+    @$con->bind($ad_user, $ad_pass);
+    $res = $con->search($grupo,'samaccountname='.$username,array('memberof','samaccountname','displayname','mail'));
+    $var = $res->getEntries();
+    if($res->countEntries() == 1){
+        $erro_con = true;
+    }elseif($var['count'] < 1){
+      $erro_con = false;
+    }
+  }
+  catch (Exception $e) {
+    //echo $e->getMessage();
+    exit;
+    $erro_con = false;
+    logoff("index.php?erro=LDAPerror");
+    //retorna erro
+  }
+  return $erro_con;
+}
 ?>

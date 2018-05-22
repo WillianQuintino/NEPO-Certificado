@@ -152,7 +152,7 @@ function datalist_user_type_certificate($data){
 function list_type_certificate($id_event, $id_user, $indice){
   $link = db_connection();
   //busca
-  $rs = mysqli_query($link, "SELECT Id, name FROM type_certificate order by name asc") or die(mysql_error());
+  $rs = mysqli_query($link, "SELECT Id, name FROM user_type_certificate order by name asc") or die(mysql_error());
   echo '<select id="user'.$indice.'" class="selectpicker" data-live-search="true" placeholder="Selecione o tipo" name="user['.$indice.'][type]">';
   while( $row = mysqli_fetch_array($rs))
   {

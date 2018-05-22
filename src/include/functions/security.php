@@ -3,6 +3,7 @@ if(empty($disable_security)){
   $disable_security = 0;
 }
 if($disable_security == 0){
+  $redirection = "?redir=".urlencode($_SERVER[REQUEST_URI]);
   // A sessão precisa ser iniciada em cada página diferente
   if (!isset($_SESSION)) session_start();
 
@@ -129,6 +130,9 @@ function remove_login_attempts($link, $ipAddress){
 }
 
 function logoff($url){
+
+  global $redirection;
+
   if (!isset($_SESSION)) session_start();
 
   // Apaga todas as variáveis da sessão
@@ -145,12 +149,19 @@ function logoff($url){
 }
 // Destrói a sessão por segurança
 session_destroy();
+if(isset($_GET['redir'])){
+  if(strpos($url, "?")) {
+    $redirection = "&redir=".urlencode($_GET['redir']);
+  }else{
+    $redirection = "?redir=".urlencode($_GET['redir']);
+  }
+}
 if (!isset($url)) $url = URL_SITE."index.php";
 // Redireciona o visitante de volta pro login
-header("Location: ".$url); exit;
+header("Location: ".$url.$redirection); exit;
 }
 
-function login($link, $user_active, $id_user, $url){
+function login($link, $user_active, $id_user){
   if ($user_active === '1') {
     // Se a sessão não existir, inicia uma
     if (!isset($_SESSION)) session_start();
@@ -158,17 +169,14 @@ function login($link, $user_active, $id_user, $url){
     // Salva os dados encontrados na sessão
     $_SESSION['id'] = $id_user;
 
-
-    if (!isset($url)){
-      $url = "home.php";
-    }
-    header('location:'.$url);
+    if(isset($_GET['redir'])) header("Location: ".$_GET['redir']);
+		else header("Location: home.php");
   }else{
     //echo "Erro:Email não validado! Enviaremos novamente um email de validação. Por Favor verifique o email ". $rs['email'] ."|";
     sendVerificationMail($id_user, $link);
-    $result = mysqli_query($link, "SELECT email FROM user WHERE user='".$id_user."'");
+    $result = mysqli_query($link, "SELECT email, user FROM user WHERE id_user='".$id_user."'");
     $rs = mysqli_fetch_array($result);
-    logoff('index.php?erro=Activate&email='.$rs['email']);
+    logoff('index.php?erro=Activate&user='.$rs['user'].'&email='.$rs['email']);
 
   }
 }
