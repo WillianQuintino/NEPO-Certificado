@@ -87,7 +87,7 @@ input::-webkit-inner-spin-button {
   padding-right: 20px !important;
 }
 .flat-form form input[type=text], .flat-form form input[type=password], .flat-form form input[type=email], .flat-form form input[type=submit] {
-  font-family: 'Roboto';
+  font-family: 'Arial';
 }
 .flat-form form input[type=text], .flat-form form input[type=password], .flat-form form input[type=email] {
   width: 100%;
@@ -96,7 +96,7 @@ input::-webkit-inner-spin-button {
   padding-left: 15px;
   background: #fff;
   border: none;
-  color: #e74c3c;
+  color: #000000;
   outline: none;
 }
 .flat-form form input.button {
@@ -123,16 +123,16 @@ input::-webkit-inner-spin-button {
   @inclue box-shadow( 0 3px 1px #0f608c );
 }
 .flat-form form input::-webkit-input-placeholder {
-  color: #e74c3c;
+  color: #000;
 }
 .flat-form form input:-moz-placeholder {
-  color: #e74c3c;
+  color: #000;
 }
 .flat-form form input::-moz-placeholder {
-  color: #e74c3c;
+  color: #000;
 }
 .flat-form form input:-ms-input-placeholder {
-  color: #e74c3c;
+  color: #000;
 }
 .flat-form .show {
   display: block;

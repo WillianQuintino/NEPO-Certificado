@@ -1,4 +1,14 @@
-<!--PHP links-->
+<script>
+function validarSenha(){
+NovaSenha = document.getElementById('passwordPost').value;
+CNovaSenha = document.getElementById('cPasswordPost').value;
+if (NovaSenha != CNovaSenha) {
+  alert("SENHAS DIFERENTES!\nFAVOR DIGITAR SENHAS IGUAIS");
+}else{
+  document.FormSenha.submit();
+}
+}
+    </script>
 <div class="flat-form">
   <ul class="tabs">
     <li>
@@ -38,14 +48,32 @@
       break;
       case "blankpass":
       ?>
-      Senha em branco.
-      Por favor, faça login novamente.<br/><br/>
+      Senha em branco.<br/><br/>
       <?php
       break;
       case "blankuser":
       ?>
-      Usuário em branco.
-      Por favor, faça login novamente.<br/><br/>
+      Usuário em branco.<br/><br/>
+      <?php
+      break;
+      case "blankname":
+      ?>
+      Nome Completo em branco.<br/><br/>
+      <?php
+      break;
+      case "blankmail":
+      ?>
+      Email em branco.<br/><br/>
+      <?php
+      break;
+      case "shortpass":
+      ?>
+      Senha Menor que 8 Digitos.<br/><br/>
+      <?php
+      break;
+      case "diferentpass":
+      ?>
+      Senha diferente da confirmação.<br/><br/>
       <?php
       break;
       case "WhrongWait":
@@ -96,16 +124,26 @@
       Usuario já registrando. Se esqueceu a senha tente resetar!<br/><br/>
       <?php
       break;
+      case "userAD":
+      ?>
+      Usuario do AD. Se esqueceu a senha entr em contato com a Informatica pelo link: <a href="http://www.nepo.unicamp.br/nepo/informatica.html">http://www.nepo.unicamp.br/nepo/informatica.html</a>!<br/><br/>
+      <?php
+      break;
+      case "emailAD":
+      ?>
+      Email do AD. Se esqueceu a senha entr em contato com a Informatica pelo link: <a href="http://www.nepo.unicamp.br/nepo/informatica.html">http://www.nepo.unicamp.br/nepo/informatica.html</a>!>Informatica</a>!<br/><br/>
+      <?php
+      break;
     }
     ?>
   </p>
   <form id="Login" name="Login" method="post" action="do_login.php<?php if(isset($_GET['redir'])) echo '?redir='.$_GET['redir']; ?>">
     <ul>
       <li>
-        <input type="text" placeholder="Username" id="username" name="usernamePost" size="30" onblur="CheckBlank(this)" value="<?php if(isset($_GET['user'])) echo $_GET['user']; ?>" />
+        <input type="text" placeholder="Username" id="username" name="usernamePost" size="30" onblur="CheckBlank(this)" value="<?php if(isset($_GET['user'])) echo $_GET['user']; ?>" required/>
       </li>
       <li>
-        <input type="password" placeholder="Password" id="password" name="passwordPost" type="password" />
+        <input type="password" placeholder="Password" id="password" name="passwordPost" type="password" required/>
       </li>
       <li>
         <input id="login" name="loginPost" value="Login" type="submit" class="button" />
@@ -120,10 +158,10 @@
   <form id="Cadastro" name="Cadastro" method="post" action="do_register.php">
     <ul>
       <li>
-        <input type="text" placeholder="Nome Completo" name="namePost" />
+        <input type="text" placeholder="Nome Completo" name="fullNamePost" required/>
       </li>
       <li>
-        <input type="text" placeholder="Usuário" name="usernamePost" />
+        <input type="text" placeholder="Usuário" name="usernamePost" required/>
       </li>
       <li>
         <!--<input type="text" placeholder="Instituição" />-->
@@ -133,20 +171,20 @@
         </datalist>
       </li>
       <li>
-        <input type="email" placeholder="E-mail" name="emailPost" />
+        <input type="email" placeholder="E-mail" name="emailPost" required/>
       </li>
       <li>
-        <input type="password" placeholder="Senha" name="passwordPost" />
+        <input type="password" placeholder="Senha" name="passwordPost" required/>
       </li>
       <li>
-        <input type="password" placeholder="Confirmação Senha" />
+        <input type="password" placeholder="Confirmação Senha" name="cPasswordPost" required/>
       </li>
       <li>
         <input type="checkbox" name="sendMailExeption" value="sendMailExeption" >Deseja Receber email de atualizações, promoções e outros.
       </li>
     </br>
     <li>
-      <input type="submit" value="Sign Up" class="button" />
+      <input type="submit" value="Sign Up" class="button"/>
     </li>
   </ul>
 </form>
